@@ -1,4 +1,6 @@
 #pragma once
+#include <glad/glad.h>
+#include <glfw3.h>
 
 enum GameState
 {
@@ -24,7 +26,7 @@ public:
 
 	// Game loop
 	void ProcessInput(float dt);
-	void Update();
+	void Update(float dt);
 	void Render();
 };
 
