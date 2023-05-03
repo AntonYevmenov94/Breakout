@@ -2,7 +2,7 @@
 #include <glad/glad.h>
 #include <glfw3.h>
 
-enum GameState
+enum class GameState
 {
 	GAME_ACTIVE,
 	GAME_MENU,

@@ -2,7 +2,7 @@
 
 Game::Game(unsigned int width, unsigned int height)
 {
-	State = GAME_ACTIVE;
+	State = GameState::GAME_ACTIVE;
 	Width = width;
 	Height = height;
 }

@@ -5,6 +5,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 #include "Game.h"
+#include "ResourceManager.h"
 
 using namespace std;
 
@@ -39,10 +40,11 @@ int main()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC1_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+    //Game initialization
     Breakout.Init();
 
-    float deltaTime = 0.0;
-    float lastFrame = 0.0;
+    float deltaTime = 0.0f;
+    float lastFrame = 0.0f;
 
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
@@ -69,6 +71,9 @@ int main()
         /* Poll for and process events */
         glfwPollEvents();
     }
+
+    //Free all resources
+    ResourceManager::Clear();
 
     glfwTerminate();
 	return 0;

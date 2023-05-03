@@ -8,25 +8,26 @@ using namespace std;
 
 class Texture2D
 {
+public:
+
 	unsigned int ID;
 
-	unsigned char* data;
-	
 	//Size of texteure
-	int Width, Height, nrChannels;
+	int Width, Height;
 	
 	//Textures format
-	int Internal_Format = GL_RGB;
-	int Image_Format = GL_RGB;
+	unsigned int Internal_Format;
+	unsigned int Image_Format;
+	
+	//Textures configuration
+	int Wrap_S;
+	int Wrap_T;
+	int Filter_Min;
+	int Filter_Max;
 
-	//Texture configurations
-	int Wrap_S = GL_REPEAT;
-	int Wrap_T = GL_REPEAT;
-	int Filter_Min = GL_LINEAR;
-	int Filter_Max = GL_LINEAR;
+	Texture2D();
 
-public:
-	Texture2D(const char* path);
+	void Generate(int width, int height, unsigned char* data);
 
 	unsigned int getId();
 

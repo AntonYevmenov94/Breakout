@@ -1,46 +1,18 @@
 #include "Shader.h"
 
-Shader::Shader(const char* vertexPath, const char* fragmentPath)
+void Shader::Compile(const char* vertexSourse, const char* fragmentSourse)
 {
-	string vShader, fShader;
-
-	ifstream vShaderFile, fShaderFile;
-	vShaderFile.exceptions(ifstream::badbit);
-	fShaderFile.exceptions(ifstream::badbit);
-	try
-	{
-		vShaderFile.open(vertexPath);
-		fShaderFile.open(fragmentPath);
-
-		stringstream vShaderStream, fShaderStream;
-		vShaderStream << vShaderFile.rdbuf();
-		fShaderStream << fShaderFile.rdbuf();
-
-		vShaderFile.close();
-		fShaderFile.close();
-
-		vShader = vShaderStream.str();
-		fShader = fShaderStream.str();
-	}
-	catch (ifstream::failure e)
-	{
-		cout << "Error, file not successfuly read " << e.what() << endl;
-	}
-
-	const GLchar* vShaderCode = vShader.c_str();
-	const GLchar* fShaderCode = fShader.c_str();
-
-
 	GLuint vertexShader, fragmentShader;
-	
+
 	//Create vertex shader
 	vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &vShaderCode, NULL);
+	glShaderSource(vertexShader, 1, &vertexSourse, NULL);
 	glCompileShader(vertexShader);
 	checkCompileErrors(vertexShader, "VERTEX");
-	
+
 	//Create fragment shader
 	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(fragmentShader, 1, &fragmentSourse, NULL);
 	glCompileShader(fragmentShader);
 	checkCompileErrors(fragmentShader, "FRAGMENT");
 
@@ -85,9 +57,10 @@ void Shader::checkCompileErrors(unsigned int object, string type)
 	}
 }
 
-void Shader::Use()
+Shader& Shader::Use()
 {
 	glUseProgram(ID);
+	return *this;
 }
 
 void Shader::SetFloat(const char* name, float value, bool useShader)
